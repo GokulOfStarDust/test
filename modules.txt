@@ -1,0 +1,498 @@
+Program 1: Implement Depth-First Search
+
+graph={'5':['3','7'],'3':['2','4'],'7':['8'],'2':[],'4':['8'],'8':[]}
+visited=set()
+ 
+def dfs(visited,graph,node):
+    if node not in visited:
+        print(node)
+        visited.add(node)
+        for neighbour in graph[node]:
+            dfs(visited,graph,neighbour)
+print("Follwing is the depth-first search")
+dfs(visited,graph,'5')
+
+===============================================================================
+
+
+Program 2:  Implement Breadth-First Search
+
+graph={'5':['3','7'],'3':['2','4'],'7':['8'],'2':[],'4':['8'],'8':[]}
+visited=[]
+queue=[]
+def bfs(visited,graph,node):
+    visited.append(node)
+    queue.append(node)
+    while queue:
+        m=queue.pop(0)
+        print(m,end="")
+        for neighbour in graph[m]:
+            if neighbour not in visited:
+                 visited.append(neighbour)
+ 
+                 queue.append(neighbour)
+print("Follwing is the Breadth-first search")
+bfs(visited,graph,'5')
+
+
+================================================================================
+
+
+Program:3 Design a program to simulate 4 Queen Problem
+
+def solve_n_queens(n):
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or abs(board[i] - col) == abs(i - row):
+                return False
+        return True
+ 
+    def backtrack(row, board):
+        if row == n:
+            result.append(board[:])
+            return
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                backtrack(row + 1, board)
+ 
+    result = []
+    backtrack(0, [-1] * n)
+    return result
+solutions = solve_n_queens(4)
+for sol in solutions:
+    for i in sol:
+        print("." * i + "Q" + "." * (len(sol) - i - 1))
+    print()
+
+
+==============================================================================
+
+
+ 
+Program:4 develop a program to solve Tower of Hanoi
+ 
+
+ 
+def hanoi(n,src,dst,aux):
+    if n==1:
+        print(f"Move Disk 1 from {src} to {dst}")
+        return
+    hanoi(n-1,src,aux,dst)
+    print(f"Move Disk {n} from {src} to {dst}")
+    hanoi(n-1,aux,dst,src)
+hanoi(3,'A','C','B')
+
+
+===============================================================================
+
+Program:5 Create a program to implement Hill Climbing Problem.
+
+import random,matplotlib.pyplot as plt,numpy as np
+def f(x):
+    return -(x-3)**2+9
+def hill_climb(iters=1000,step=0.1):
+    x,path=random.uniform(-10,10),[]
+    for _ in range(iters):
+        nx=x+random.uniform(-step,step)
+        if f(nx)>f(x):x=nx
+        path.append(x)
+    return x,f(x),path
+best_x,best_val,path=hill_climb()
+x=np.linspace(-10,10,400)
+plt.plot(x,f(x),'b-',label="f(x)")
+plt.plot(path,[f(p) for p in path],'ro',label="path")
+plt.scatter(best_x,best_val,c="g",s=80,label="best")
+plt.legend()
+plt.show()
+
+
+=================================================================================
+
+Program:6 Design a program to implement A* algorithm.
+
+import heapq
+def astar(start,goal,graph,heuristic):
+    open_list=[(heuristic[start],0,start,[start])]
+    visited=set()
+    while open_list:
+        f,g,node,path=heapq.heappop(open_list)
+        if node==goal:
+            return path,g
+        if node in visited:
+            continue
+        visited.add(node)
+        for neighbour,cost in graph[node]:
+            if neighbour not in visited:
+                g_new=g+cost
+                f_new=g_new+heuristic[neighbour]
+                heapq.heappush(open_list,(f_new,g_new,neighbour,path+[neighbour]))
+    return none,float("inf")
+graph={
+    'A':[('B',1),('C',3)], 'B':[('D',1),('E',5)],'C':[('F',2)],'D':[('G',2)],'E':[('G',1)],'F':[('G',2)],'G':[]}
+heuristic={'A':7,'B':6,'C':5,'D':4,'E':2,'F':1,'G':0}
+path,cost=astar('A','G',graph,heuristic)
+print("Shortest Path:",path)
+print("Total Cost:",cost)
+
+
+=================================================================================================
+
+Program:7 Implement simple chatbot.
+def chatbot():
+    print("Chatbot:Hiiiii!!! Type 'Bye' to exist.")
+    while True:
+        user=input('you:').lower()
+        if 'hello' in user:
+            print('Chatbot:hello there !!')
+        elif 'how are you' in user:
+            print('Chatbot: I am Doing Great,Thanks !')
+        elif 'bye' in user:
+            print('chatbot : GoodBye !!')
+            break
+        else:
+            print('chatbot: i Dont understand')
+chatbot()
+
+=====================================================================================================
+
+Program:8 Design a code to create and load different Dataset.
+
+> df1<-data.frame(id=1:5,name=c("A","B","C","D","E"),marks=c(78,85,67,90,72))
+> print(df1)
+
+Output:
+  id name marks
+1  1    A    78
+2  2    B    85
+3  3    C    67
+4  4    D    90
+5  5    E    72
+
+> my_matrix<-matrix(data=1:12,nrow=3,ncol=4,byrow=FALSE)
+> paste("Matrix Created is:")
+> print(my_matrix)
+Output:
+[1] "Matrix Created is:"
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12
+ 
+> data("iris")
+> data("mtcars")
+> head(iris)
+> head(mtcars)
+
+Output:
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+
+> csv_data<-read.csv("Z:/program8.csv")
+> head(csv_data)
+output:  
+ name     roll
+1 mohan 23bcm524
+
+> library(readxl)
+> excel_data<-read_excel("Z:/program8.xlsx")
+> head(excel_data)
+Output:
+# A tibble: 1 × 2
+  name  roll    
+  <chr> <chr>   
+1 mohan 23bcm524
+
+> txt_data<-read.table("C:/Users/TEMP.LABS-SGCAS/Desktop/sample.txt",header=TRUE,,sep="\t")
+> head(txt_data)
+Output:
+[1] welcome
+<0 rows> (or 0-length row.names)
+ 
+> url_csv <- "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+> online_csv <- read.csv(url_csv)
+> head(online_csv)
+Output:
+  sepal_length sepal_width petal_length petal_width species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+
+python code :
+
+
+import pandas as pd
+data={'Name':['Rithu','Vish','Ruban',],
+ 'Age':[20,57,32],
+ 'City':['Trippur','Coimbatore','Erode']}
+df=pd.Dataframe(data)
+print(df)
+data=pd.read_csv("Z:\prg5.csv")
+print(data)
+
+
+===================================================================================
+
+Program 9:  Develop a code to compute Mean, Median, Mode,Standard Deviation, Variance using Dataset
+
+ 
+>data<-c(12,15,18,15,20,22,15,18,25)
+> mean_value<-mean(data)
+> cat("Mean=",mean_value,"\n")
+> median_value<-median(data)
+> cat("Median=",median_value,"\n")
+> mode_value<-as.numeric(names(sort(table(data),decreasing=TRUE))[1])
+> cat("Mode=",mode_value,"\n")
+> variance_value<-var(data)
+> cat("Variance=",variance_value,"\n")
+> sd_value<-sd(data)
+> cat("Standard Deviation=",sd_value)
+
+python code :
+
+import pandas as pd
+import numpy as np
+import statistics as stat
+data=pd.read_csv("Z:\Iris.csv")
+column_name='SepalLength'
+data_column=data[column_name]
+mean=np.mean(data_column)
+median=np.median(data_column)
+mode=data_column.mode()[0]
+variance=np.var(data_column)
+std_dev=np.std(data_column)
+print(f"Mean:{mean}")
+print(f"Median:{median}")
+print(f"Mode:{mode}")
+print(f"Variance:{variance}")
+print(f"stddev:{std_dev}")
+
+
+=====================================================================================
+
+Program 10: Create a code to compute Reshaping the data, Filtering the data, Merging the data and Handling the Missing Values in data set.
+
+library(dplyr)   
+> library(tidyr)     
+> data1 <- data.frame(ID = 1:5,Name = c("Alice", "Bob", "Charlie", "David", "Eve"),
++ Age = c(25, NA, 30, 22, NA),Score1 = c(85, 90, 78, 92, 88),Score2 = c(85, 90, 78, 92, 88 ))
+> data2 <- data.frame(ID = 1:5,Score2 = c(80, 85, NA, 95, 90))
+> long_data <- data1 %>%
++   pivot_longer(cols = starts_with("Score"), names_to = "Subject", values_to = "Score")
+> print("Long format data:")
+> print(long_data)
+
+> wide_data <- long_data %>%  pivot_wider(names_from = Subject, values_from = Score)
+> print("Wide format data:")
+> print(wide_data)
+
+> filtered_data <- data1 %>% filter(Age > 25, Score1 > 80)
+> print("Filtered data:")
+> print(filtered_data)
+
+> merged_data <- data1 %>% left_join(data2, by = "ID")
+> print("Merged data:")
+> print(merged_data)
+
+merged_data$Age[is.na(merged_data$Age)] <- mean(merged_data$Age, na.rm = TRUE)
+> merged_data$Score2[is.na(merged_data$Score2)] <- median(merged_data$Score2, na.rm = TRUE)
+> print("Data after handling missing values:")
+> print(merged_data)
+> cleaned_data <- merged_data %>% drop_na()
+> print("Cleaned Data without NA:")
+> print(cleaned_data)
+
+
+
+python code : 
+
+import pandas as pd
+df=pd.read_csv("Z:\Iris.csv")
+print("Original Data:\n",df.head())
+reshaped=pd.melt(df,id_vars=['Species'],
+ value_vars=['Sepal Length','Sepal 
+Width','Petal Length','Petal Width'],
+ var_name='Feature',value_name='Value')
+print("\nReshaped Data:\n",reshaped.head())
+filtered=df[df['PetalLength']>1.5]
+print("\n Filtered Data:\n",filtered.head())
+species_info=pd.DataFrames({'Species':['Irissetosa','Iris-versicolor','Iris-virginica'],
+ 'Category':['Flower A','Flower 
+B','Flower C']})
+merged=pd.merge(df,species_info,on='Species',ho
+w='left')
+print("\n Merged Data:\n",merged.head())
+
+========================================================================================
+
+
+Program:11  Implement Simple Linear Regression.
+
+> data(mtcars)
+> head(mtcars)
+> model <- lm(mpg ~ wt, data = mtcars)
+> summary(model) > plot(mtcars$wt, mtcars$mpg, main = "Simple Linear Regression: MPG vs Weight",xlab = "Weight (1000 lbs)",ylab = "Miles per Gallon", pch = 19)
+> abline(model, col = "red", lwd = 2)
+
+python code :
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import 
+LinearRegression
+data=pd.read_csv("Z:\salary_data.csv")
+X,y=data[['YearsExperience']],data['Salary']
+model=LinearRegression().fit(X,y)
+plt.scatter(X,y);plt.plot(X,model.predict(X),'r')
+plt.xlabel('Years of Experience');plt.ylabel('Salary')
+plt.show()
+
+========================================================================================
+
+Program:12  Implement Multiple Linear Regression.
+
+> data(mtcars)
+> head(mtcars)
+> model <- lm(mpg ~ wt + hp, data = mtcars)
+> summary(model)
+> plot(model$fitted.values, mtcars$mpg, main = "Actual vs Fitted MPG",xlab = "Fitted MPG", ylab = "Actual MPG",pch = 19)
+> abline(0, 1, col = "blue", lwd = 2)
+
+python code :
+
+import pandas as pd,matplotlib.pyplot as plt
+from sklearn.linear_model import 
+LinearRegression
+d=pd.read_csv("Z:\salary_data_MLP.csv")
+X,y=d[['YearsExperience','Age']],d['Salary']
+m=LinearRegression().fit(X,y)
+print("Coef:",m.coef_,"Intercept:",m.intercept_)
+print("Predicted:",m.predict(X)[:5])
+sc=plt.scatter(d['YearsExperience'],y,c=d['Age'],cm
+ap='viridis',label='Actual')
+plt.scatter(d['YearsExperience'],m.predict(X),c='r',a
+lpha=0.6,label='Predicted')
+plt.colorbar(sc,label='Age')
+plt.xlabel('YearsExperience');plt.ylabel('Salary')
+plt.title('Multiple Linear 
+Regression');plt.legend();plt.show()
+
+========================================================================================
+
+Program:13 Implement k-Nearest Neighbours classification and display both correct and wrong predictions.
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+X,y=load_iris(return_X_y=True)
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3)
+knn=KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train,y_train)
+y_pred=knn.predict(X_test)
+for actual,pred in zip(y_test,y_pred):
+    print("Actual:",actual,"Predicted:",pred,"->Correct" if actual == pred else "->wrong")
+
+
+===========================================================================================
+
+Program: 14 Design a program to implement the Naïve Bayesian classifier for training data stored as a .CSV file. Compute the accuracy of the classifier with the test data set.
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+data = pd.read_csv(r 'Z:\diabetes.csv')
+X = data.iloc[:, :-1]
+y = data.iloc[:,-1]
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size = 0.2 ,random_state = 40)
+model = GaussianNB()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy of Navie Bayes classifiers:" , accuracy)
+
+
+=============================================================================================
+
+Program:15 Implement time series forecasting model with suitable data.
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.datasets import get_rdataset
+data = get_rdataset("AirPassengers").data
+data['Month'] = pd.date_range(start='1949-01-01', periods=len(data), freq='MS')
+data.set_index('Month', inplace=True)
+data = data.asfreq('MS')
+plt.figure(figsize=(10,5))
+plt.plot(data['value'], label="AirPassengers")
+plt.title("Monthly Airline Passenger Counts")
+plt.xlabel("Year")
+plt.ylabel("Passengers")
+plt.legend() 
+plt.show()
+model = ARIMA(data['value'], order=(2,1,2))  
+model_fit = model.fit(method_kwargs={"maxiter": 500})
+forecast = model_fit.forecast(steps=12)
+plt.figure(figsize=(10,5))
+plt.plot(data['value'], label="Historical")
+plt.plot(pd.date_range(data.index[-1], periods=12, freq='ME'), forecast, label="Forecast", color="red")
+plt.title("AirPassengers Forecast")
+plt.xlabel("Year")
+plt.ylabel("Passengers")
+plt.legend() 
+plt.show()
+
+============================================================================================
+
+
+Program:16 Demonstrate Sentiment Analysis with Naïve Bayes classifier.
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, classification_report
+
+df = pd.read_csv('Z:/program_16_csv.csv')
+vectorizer = CountVectorizer()
+x = vectorizer.fit_transform(df['text'])
+y = df['label']
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.25,random_state = 42, stratify = y)
+model = MultinomialNB()
+model.fit(x_train, y_train)
+y_pred = model.predict(x_test)
+print("Accuracy :",accuracy_score(y_test,y_pred))
+print(f"\n Classification Report:\n:",classification_report(y_test,y_pred))
+new_texts = ["I really enjoyed this!","It was a horrible experience."]
+new_features = vectorizer.transform(new_texts)
+predictions = model.predict(new_features)
+for text,sentiment in zip(new_texts,predictions):
+    print(f"Text : '{text}'->Sentiment:{sentiment}")
+
+
+=========================================================================================
+
+Program:17 Create a bar chart, pie chat, scatter chat for the given data using R.
+
+data(mtcars)
+cyl_counts<- table(mtcars$cyl)
+barplot(cyl_counts,main="Car Counts by Cylinder Number", xlab="Number of Cylinder",ylab="Number of Cars", col=c("blue","red","Green"),  border="black")
+pie(cyl_counts,labels=paste(names(cyl_counts),"cylinder"),
+    main="Distribution of cars Models By Cylinders",col = c("blue","green","red"))
+plot(mtcars$wt,mtcars$mpg,main="Scatter Plot of Weight vs MPG", xlab="WEIGHT(1000LBS)",ylab="MILES PER GALLON (MPG)", col="blue",
+     pch=19)
+     
+=========================================================================================
